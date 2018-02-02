@@ -7,13 +7,29 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TemplateRestApp Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+
 	<dependencies>
+
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
-			<version>1.8</version>
+			<version>1.9</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.9</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>asm</groupId>
+		    <artifactId>asm</artifactId>
+		    <version>3.3.1</version>
+		</dependency>
+
 	</dependencies>
+
 	<build>
 		<finalName>TemplateRestApp</finalName>
 	</build>
