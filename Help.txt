@@ -1,0 +1,70 @@
+//INTEGRATE ANGULAR TO JAVA MAVEN PROJECT (STATIC FILES)
+//------------------------------------------------------
+https://stackoverflow.com/questions/38532210/how-to-integrate-angular-2-java-maven-web-application
+
+1. Change the angular output build from dist (ng project) to webapp (J2EE) : "outDir": "../webapp/ng"
+2. Add plugins to pom.xml (at the bottom of this document)
+3. Build maven & Angular
+4. Deploy & see if it works : http://localhost:8080/ngfirst/ng/index.html
+
+---------
+PLUGINS :
+---------
+<plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+            <excludes>
+                <exclude>ngapp/**</exclude>
+            </excludes>
+        </configuration>
+    </plugin>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+            <excludes>
+                <exclude>ngapp/**</exclude>
+            </excludes>
+        </configuration>
+    </plugin>
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.5.0</version>
+        <executions>
+            <execution>
+                <id>exec-npm-install</id>
+                <phase>generate-sources</phase>
+                <configuration>
+                    <workingDirectory>${project.basedir}/src/main/ngapp</workingDirectory>
+                    <executable>npm</executable>
+                    <arguments>
+                        <argument>install</argument>
+                    </arguments>
+                </configuration>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+            </execution>
+            <execution>
+                <id>exec-npm-ng-build</id>
+                <phase>generate-sources</phase>
+                <configuration>
+                    <workingDirectory>${project.basedir}/src/main/ngapp</workingDirectory>
+                    <executable>ng</executable>
+                    <arguments>
+                        <argument>build</argument>
+                        <argument>--base-href=/ngfirst/ng/</argument>
+                    </arguments>
+                </configuration>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+</plugins>  
